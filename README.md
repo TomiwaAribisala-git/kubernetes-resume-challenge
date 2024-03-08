@@ -12,7 +12,7 @@
 ## Database Containerization & Web Application Containerization(Local Testing using Docker Desktop)
 - For testing purposes locally, i pulled/ran the MariaDB image as the database container in a docker network
 ```sh
-docker run -d —network some-network —name mysqlservice —env DB_NAME=ecomdb DB_USER=ecomuser  —env DB_PASSWORD=ecompassword —env MARIADB_ROOT_PASSWORD=ecompassword -p 3306:3306 mariadb:latest
+docker run -d —network some-network —name mysql-service DB_USER=ecomuser  —env DB_PASSWORD=ecompassword —env MARIADB_ROOT_PASSWORD=ecompassword -p 3306:3306 mariadb:latest
 ```
 - I accessed the database container to run SQL statements--which creates a database in the database server
 ```sh
@@ -59,3 +59,4 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 - Created a [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) file to build the Docker image and push it to Docker Hub
 
 ## Setup Kubernetes Cluster on AWS
+- Setup an [AWS EKS cluster](./terraform/) using Infrastructure As Code--Terraform
