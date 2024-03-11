@@ -18,7 +18,6 @@ jobs:
       run: echo "php test"
 
  docker:
-   needs: build
    runs-on: ubuntu-latest
    
    steps:

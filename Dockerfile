@@ -4,7 +4,7 @@ RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
 WORKDIR /var/www/html/
 
-COPY . .
+COPY /app .
 
 ENV DB_HOST=mysql-service \
     DB_USER=ecomuser \
