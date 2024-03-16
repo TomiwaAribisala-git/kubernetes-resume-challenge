@@ -76,17 +76,9 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform plan
-        env:
-         TF_VAR_vpc_cidr_block: ${{ secrets.vpc_cidr_block }}
-         TF_VAR_private_subnet_cidr_blocks: ${{ secrets.private_subnet_cidr_blocks }}
-         TF_VAR_public_subnet_cidr_blocks: ${{ secrets.public_subnet_cidr_blocks }}
         run: terraform plan -no-color
 
       - name: Terraform apply
-        env:
-         TF_VAR_vpc_cidr_block: ${{ secrets.vpc_cidr_block }}
-         TF_VAR_private_subnet_cidr_blocks: ${{ secrets.private_subnet_cidr_blocks }}
-         TF_VAR_public_subnet_cidr_blocks: ${{ secrets.public_subnet_cidr_blocks }}
         run: terraform apply --auto-approve -no-color
       
       #- name: Terraform destroy
