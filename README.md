@@ -60,3 +60,6 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 
 ## Setup Kubernetes Cluster on AWS
 - Setup an [AWS EKS cluster](./terraform/) using Infrastructure As Code--Terraform
+
+## Deployed Website to Kubernetes and Exposed The Wesbite Using Kubernetes Deployment and Service Manifests
+- Outcome URL: 
