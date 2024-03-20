@@ -50,6 +50,10 @@ kubectl apply -f mariadb-secret.yml
 ```
 
 ```sh
+kubectl apply -f mariadb-pv.yml 
+``` 
+
+```sh
 kubectl apply -f mariadb-pvc.yml 
 ``` 
 
