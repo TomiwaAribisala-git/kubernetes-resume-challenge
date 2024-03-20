@@ -29,9 +29,9 @@ module "eks" {
 
   eks_managed_node_groups = {
     example = {
-      min_size     = 3
+      min_size     = 4
       max_size     = 5
-      desired_size = 4
+      desired_size = 5
     }
   }
 
