@@ -39,7 +39,7 @@ kubectl get pv
 kubectl get pvc
 ```
 
-## Create Secret for Kubernetes to pull Ecommerce Application Docker Image[CONFIDENTIAL]
+## Create Secret for Kubernetes to pull Ecommerce Application Docker Image
 ```sh
 kubectl create secret docker-registry regcred docker-service docker.io docker-username tomiwa97 docker-password ************************************
 ```
@@ -47,6 +47,10 @@ kubectl create secret docker-registry regcred docker-service docker.io docker-us
 ## Kubectl Commands
 ```sh
 kubectl apply -f mariadb-secret.yml 
+```
+
+```sh
+kubectl apply -f storage-class.yml 
 ```
 
 ```sh
