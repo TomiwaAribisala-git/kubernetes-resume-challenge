@@ -72,16 +72,16 @@ jobs:
       - name: Terraform init
         run: terraform init
 
-      #- name: Terraform Validate
-        #run: terraform validate -no-color
+      - name: Terraform Validate
+        run: terraform validate -no-color
 
-      #- name: Terraform plan
-        #run: terraform plan -no-color
+      - name: Terraform Plan
+        run: terraform plan -no-color
 
-      #- name: Terraform apply
-        #run: terraform apply --auto-approve -no-color
+      - name: Terraform Apply
+        run: terraform apply --auto-approve -no-color
       
-      - name: Terraform destroy
+      - name: Terraform Destroy
         run: terraform destroy --auto-approve -no-color
 
  
