@@ -28,8 +28,8 @@ resource "null_resource" "update_desired_size" {
     interpreter = ["/bin/bash", "-c"]
     command = <<-EOT
       aws eks update-nodegroup-config \
-        --cluster-name ecommerce-app-cluster \
-        --nodegroup-name example \
+        --cluster-name ${module.eks.cluster_name} \
+        --nodegroup-name ${element(split(":", module.eks.eks_managed_node_groups["example"].node_group_id), 1)} \
         --scaling-config desiredSize=${local.desired_size}
     EOT
   }
