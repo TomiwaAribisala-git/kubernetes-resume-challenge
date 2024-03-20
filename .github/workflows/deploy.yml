@@ -81,46 +81,7 @@ jobs:
       - name: Terraform apply
         run: terraform apply --auto-approve -no-color
       
-      #- name: Terraform destroy
-        #run: terraform destroy --auto-approve -no-color
+      - name: Terraform destroy
+        run: terraform destroy --auto-approve -no-color
 
- kubernetes:
-  needs: terraform
-  name: "deploy to eks"
-  runs-on: ubuntu-latest
-  env:
-    EKS_CLUSTER_NAME: ecommerce-app-cluster
-    AWS_REGION: eu-north-1
-  defaults:
-    run:
-      working-directory: ./kubernetes
-  steps:
-   - name: Checkout Code
-     uses: actions/checkout@v3
-
-   - name: Configure AWS credentials
-     uses: aws-actions/configure-aws-credentials@v1
-     with:
-       working-directory: ./kubernetes
-       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-       aws-region: ${{env.AWS_REGION}}
-
-   - name: Update kube config
-     run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
-
-   #- name: Create secret to pull image
-     #run: kubectl create secret docker-registry regcred --docker-server=docker.io --docker-username=${{ secrets.DOCKERHUB_USERNAME }} --docker-password=${{ secrets.DOCKERHUB_TOKEN }}
-     
-   - name: Deploy To EKS
-     run: |
-      kubectl apply -f mariadb-secret.yml 
-      kubectl apply -f storage-class.yml 
-      kubectl apply -f mariadb-pv.yml
-      kubectl apply -f mariadb-pvc.yml 
-      kubectl apply -f mariadb-configmap.yml 
-      kubectl apply -f mariadb.yml 
-      kubectl apply -f mariadb-svc.yml 
-      kubectl apply -f ecom-web-configmap.yml 
-      kubectl apply -f ecom-web.yml 
-      kubectl apply -f ecom-web-svc.yml 
+ 
