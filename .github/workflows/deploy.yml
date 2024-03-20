@@ -109,12 +109,13 @@ jobs:
    - name: Update kube config
      run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
 
-   - name: Create secret to pull image
-     run: kubectl create secret docker-registry regcred --docker-server=docker.io --docker-username=${{ secrets.DOCKERHUB_USERNAME }} --docker-password=${{ secrets.DOCKERHUB_TOKEN }}
+   #- name: Create secret to pull image
+     #run: kubectl create secret docker-registry regcred --docker-server=docker.io --docker-username=${{ secrets.DOCKERHUB_USERNAME }} --docker-password=${{ secrets.DOCKERHUB_TOKEN }}
      
    - name: Deploy To EKS
      run: |
       kubectl apply -f mariadb-secret.yml 
+      kubectl apply -f storage-class.yml 
       kubectl apply -f mariadb-pvc.yml 
       kubectl apply -f mariadb-configmap.yml 
       kubectl apply -f mariadb.yml 
