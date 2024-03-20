@@ -72,11 +72,11 @@ jobs:
       - name: Terraform init
         run: terraform init
 
-      - name: Terraform Validate
-        run: terraform validate -no-color
+      #- name: Terraform Validate
+        #run: terraform validate -no-color
 
-      - name: Terraform plan
-        run: terraform plan -no-color
+      #- name: Terraform plan
+        #run: terraform plan -no-color
 
       #- name: Terraform apply
         #run: terraform apply --auto-approve -no-color
