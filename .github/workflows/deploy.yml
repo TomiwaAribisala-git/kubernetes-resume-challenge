@@ -110,7 +110,7 @@ jobs:
      run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
 
    - name: Create secret to pull image
-     run: kubectl create secret docker-registry regcred --docker-service=docker.io --docker-username=${{ secrets.DOCKERHUB_USERNAME }} --docker-password=${{ secrets.DOCKERHUB_TOKEN }}
+     run: kubectl create secret docker-registry regcred --docker-server=docker.io --docker-username=${{ secrets.DOCKERHUB_USERNAME }} --docker-password=${{ secrets.DOCKERHUB_TOKEN }}
      
    - name: Deploy To EKS
      run: |
