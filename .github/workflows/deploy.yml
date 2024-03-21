@@ -20,11 +20,11 @@ jobs:
  docker:
    runs-on: ubuntu-latest
    outputs:
-    app: ${{ steps.changes.outputs.app }}
+    app: ${{ steps.filter.outputs.app }}
    steps:
     - uses: actions/checkout@v3
     - uses: dorny/paths-filter@v2
-      id: docker
+      id: filter
       with:
        filters: |
         app:
@@ -32,7 +32,7 @@ jobs:
 
  app:
   needs: docker
-  if: ${{ needs.changes.outputs.app == 'true' }}
+  if: ${{ needs.docker.outputs.app == 'true' }}
   runs-on: ubuntu-latest
   steps:
    - name: Build Docker Image
