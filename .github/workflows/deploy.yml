@@ -116,7 +116,7 @@ jobs:
      run: |
       kubectl apply -f mariadb-secret.yml 
       kubectl apply -f storage-class.yml 
-      kubectl apply -f mariadb-pv.yml
+      kubectl apply -f mariadb-pv1.yml
       kubectl apply -f mariadb-pvc.yml 
       kubectl apply -f mariadb-configmap.yml 
       kubectl apply -f mariadb.yml 

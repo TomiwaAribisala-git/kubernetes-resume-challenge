@@ -54,7 +54,7 @@ kubectl apply -f storage-class.yml
 ```
 
 ```sh
-kubectl apply -f mariadb-pv.yml 
+kubectl apply -f mariadb-pv1.yml 
 ``` 
 
 ```sh
