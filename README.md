@@ -72,5 +72,10 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 
 ## Autoscale the application; preparing for a marketing campaign
 - Current number of running pods: `kubectl get pods`
+
+![kubectl get pods](./images/pods.png)
+
 - Using `kubectl scale deployment/ecom-web --replicas=6` to handle the increased load
 - Observing the deployment scaling up with `kubectl get pods` 
+
+![kubectl get pods](./images/scale-pods.png)
