@@ -97,3 +97,11 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 ![Rollback-Update](./images/rollback.png)
 
 ![Wesbite-Rollback-Update](./images/website-rollback.png)
+
+## Autoscaling the application based on CPU usage to handle unpredictable traffic spikes
+- Installed Kubernetes Metrics Server: `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
+- Created a [HorizontalPodAutoscaler Deployment](./kubernetes/php-apache.yml) and [HorizontalPodAutoscaler Service](./kubernetes/php-apache-svc.yml)
+
+## Extras
+- [HorizontalPodAutoscaler Walkthrough](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+- [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
