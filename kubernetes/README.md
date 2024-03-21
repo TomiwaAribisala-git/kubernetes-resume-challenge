@@ -78,6 +78,10 @@ kubectl apply -f ecom-web-configmap.yml
 ```
 
 ```sh
+kubectl apply -f ecom-web-config.yml 
+```
+
+```sh
 kubectl apply -f ecom-web.yml 
 ```
 

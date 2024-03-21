@@ -119,5 +119,6 @@ jobs:
       kubectl apply -f mariadb.yml 
       kubectl apply -f mariadb-svc.yml
       kubectl apply -f ecom-web-configmap.yml 
+      kubectl apply -f ecom-web-config.yml 
       kubectl apply -f ecom-web.yml 
       kubectl apply -f ecom-web-svc.yml

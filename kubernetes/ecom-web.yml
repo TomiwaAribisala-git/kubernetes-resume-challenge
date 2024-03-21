@@ -23,6 +23,11 @@ spec:
       ports:
        - containerPort: 80
       env:
+       - name: FEATURE_DARK_MODE
+         valueFrom:
+          configMapKeyRef:
+           name: ecom-web-config
+           key: FEATURE_DARK_MODE
        - name: DB_HOST
          valueFrom:
           configMapKeyRef:
