@@ -122,8 +122,8 @@ jobs:
       kubectl delete -f mariadb-configmap.yml 
       kubectl delete -f mariadb.yml 
       kubectl delete -f mariadb-svc.yml
-      kubectl apply -f ecom-web-configmap.yml 
-      kubectl apply -f ecom-web.yml 
-      kubectl apply -f ecom-web-svc.yml 
+      kubectl delete -f ecom-web-configmap.yml 
+      kubectl delete -f ecom-web.yml 
+      kubectl delete -f ecom-web-svc.yml 
 
  
