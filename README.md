@@ -90,3 +90,10 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 ![Rollout-Update](./images/rollout.png)
 
 ![Wesbite-Rollout-Update](./images/wesbsite-rollout.png)
+
+## Rolling Back Deployment
+- Executed `kubectl rollout undo deployment/ecom-web` to revert to the previous deployment state
+
+![Rollback-Update](./images/rollback.png)
+
+![Wesbite-Rollback-Update](./images/website-rollback.png)
