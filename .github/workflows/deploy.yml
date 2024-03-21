@@ -114,12 +114,7 @@ jobs:
      
    - name: Deploy To EKS
      run: |
-      kubectl delete -f mariadb-pvc.yml 
       kubectl delete -f mariadb.yml 
-      kubectl delete -f mariadb-configmap.yml 
-      kubectl delete -f mariadb-svc.yml
-      kubectl delete -f ecom-web-configmap.yml 
-      kubectl delete -f ecom-web.yml 
-      kubectl delete -f ecom-web-svc.yml 
+
 
  
