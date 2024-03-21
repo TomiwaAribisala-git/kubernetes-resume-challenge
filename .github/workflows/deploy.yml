@@ -19,39 +19,27 @@ jobs:
 
  docker:
    runs-on: ubuntu-latest
-   outputs:
-    app: ${{ steps.filter.outputs.app }}
+
    steps:
     - uses: actions/checkout@v3
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-       filters: |
-        app:
-         - 'app/**'
 
- app:
-  needs: docker
-  if: ${{ needs.docker.outputs.app == 'true' }}
-  runs-on: ubuntu-latest
-  steps:
-   - name: Build Docker Image
-     uses: docker/build-push-action@v4
-     with:
-      context: .
-      file: Dockerfile 
-      push: false
-      tags: ecom-web:v1
-    
-   - name: Login to Docker Hub
-     uses: docker/login-action@v2
-     with:
-       username: ${{ secrets.DOCKERHUB_USERNAME }}
-       password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build Docker Image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: Dockerfile 
+        push: false
+        tags: ecom-web:v1
       
-   -  run: | 
-       docker tag ecom-web:v1 ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v1 
-       docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v1
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    -  run: | 
+        docker tag ecom-web:v1 ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v1 
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v1
 
  terraform:
     name: "terraform"
