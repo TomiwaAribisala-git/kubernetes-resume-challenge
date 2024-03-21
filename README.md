@@ -88,3 +88,5 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 - Outcome: `kubectl rollout status deployment/ecom-web`
 
 ![Rollout-Update](rollout.png)
+
+![Wesbite-Rollout-Update](website-rollout.png)
