@@ -119,7 +119,7 @@ jobs:
       kubectl apply -f mariadb-pv1.yml
       kubectl apply -f mariadb-pvc.yml 
       kubectl apply -f mariadb-configmap.yml 
-      kubectl apply -f mariadb.yml 
+      kubectl delete -f mariadb.yml 
       kubectl apply -f mariadb-svc.yml
       kubectl apply -f ecom-web-configmap.yml 
       kubectl apply -f ecom-web.yml 
