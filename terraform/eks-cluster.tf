@@ -31,7 +31,7 @@ module "eks" {
     example = {
       min_size     = 4
       max_size     = 5
-      desired_size = local.desired_size
+      desired_size = 4
     }
   }
 
