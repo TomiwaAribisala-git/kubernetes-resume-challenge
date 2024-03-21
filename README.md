@@ -80,3 +80,11 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 - Observing the deployment scaling up with `kubectl get pods` 
 
 ![kubectl get pods](./images/scale-pods.png)
+
+## Performing a Rolling Update
+- Modified [web application’s code](./app/index.php) to include promotional banner
+- Built a updated Docker image--`tomiwa97/ecom-web:v2` and pushed to DockerHub
+- Updated `ecom-web.yaml` with the new image version
+- Outcome: `kubectl rollout status deployment/ecom-web`
+
+![Rollout-Update](rollout.png)

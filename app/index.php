@@ -163,7 +163,19 @@
             </div>
         </section>
 
-
+        <!--==========Promotional Banner==========-->
+        <div class="banner">
+            <div class="banner__content">
+                <div class="banner__text">
+                <strong>Enjoy Exclusive Discounts and Vouchers on Our New Laptops and VR Devices</strong>
+                </div>
+                <button class="banner__close" type="button">
+                    <span class="material-icons">
+                    close
+                    </span>
+                </button>
+            </div>
+        </div>
         <footer class="footer_area row">
             <div class="container custom-container">
 
