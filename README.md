@@ -87,6 +87,6 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 - Updated `ecom-web.yaml` with the new image version
 - Outcome: `kubectl rollout status deployment/ecom-web`
 
-![Rollout-Update](rollout.png)
+![Rollout-Update](./images/rollout.png)
 
-![Wesbite-Rollout-Update](website-rollout.png)
+![Wesbite-Rollout-Update](./images/wesbsite-rollout.png)
