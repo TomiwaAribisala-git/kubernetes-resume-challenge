@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /mnt/data
+    path: /mnt/data ## I am having an issue using a path in the target node
   nodeAffinity:
     required:
       nodeSelectorTerms:
