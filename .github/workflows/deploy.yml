@@ -114,7 +114,6 @@ jobs:
      
    - name: Deploy To EKS
      run: |
-      kubectl delete -f mariadb-secret.yml 
       kubectl delete -f storage-class.yml
       kubectl delete -f mariadb-pv.yml  
       kubectl delete -f mariadb-pv1.yml
