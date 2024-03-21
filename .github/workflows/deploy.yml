@@ -38,8 +38,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
     -  run: | 
-        docker tag ecom-web:v1 ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v1 
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v1
+        docker tag ecom-web:v1 ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v2 
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-web:v2
 
  terraform:
     name: "terraform"
