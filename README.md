@@ -63,4 +63,14 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 
 ## Deployed Website to Kubernetes and Exposed The Wesbite Using Kubernetes Deployment and Service Manifests
 - [Kubernetes Deployment and Service Manifests](./kubernetes/)
-- Outcome URL: adc6da8c63d974b9bb2d6accc68a6424-693478017.eu-north-1.elb.amazonaws.com 
+- Outcome URL: http://a37a0662677084f048a9b0287d65371a-762690969.eu-north-1.elb.amazonaws.com/
+
+## Implement Configuration Management
+- Added a [dark theme CSS file](./app/css/style-dark.css) and a simple feature toggle in the [application code](./app/index.php)
+- Created a ConfigMap named [ecom-web-config](./kubernetes/ecom-web-config.yml) with the data FEATURE_DARK_MODE=true.
+- Outcome: [Website Dark Mode](./images/darktheme.png)
+
+## Autoscale the application; preparing for a marketing campaign
+- Current number of running pods: `kubectl get pods`
+- Using `kubectl scale deployment/ecom-web --replicas=6` to handle the increased load
+- Observing the deployment scaling up with `kubectl get pods` 
