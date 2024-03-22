@@ -121,7 +121,11 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 
 ![Observe-HPA](./images/observe-hpa.png)
 
-- See how Autoscaler reacts by increasing load; Using Load-Generator:`kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"`, Using Apache Bench: `alias ab='kubectl run test-load --rm --tty -i --restart='Never' --image devth/alpine-bench --command -- /go/bin/main'`,
+- See how Autoscaler reacts by increasing load:
+
+Using Load-Generator:`kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"`
+
+Using Apache Bench: `alias ab='kubectl run test-load --rm --tty -i --restart='Never' --image devth/alpine-bench --command -- /go/bin/main'`,
 `ab -n 10000 -c 900 -s 300 https://my.site123.com/(replace URL with your ecom-web service)`
 
 ![Increase Load](./images/increase-load.png)
