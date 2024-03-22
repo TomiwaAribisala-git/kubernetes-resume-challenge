@@ -22,6 +22,16 @@ spec:
       imagePullPolicy: Always
       ports:
        - containerPort: 80
+      livenessProbe:
+       initialDelaySeconds: 5
+       periodSeconds: 5
+       tcpSocket:
+        port: 80
+      readinessProbe: 
+       initialDelaySeconds: 5
+       periodSeconds: 5
+       tcpSocket:
+        port: 80
       env:
        - name: FEATURE_DARK_MODE
          valueFrom:
@@ -48,3 +58,4 @@ spec:
           secretKeyRef:
            name: mariadb-secret
            key: db_name
+        

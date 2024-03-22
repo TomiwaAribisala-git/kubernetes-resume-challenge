@@ -59,7 +59,7 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 - Created a [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) file to build the Docker image and push it to Docker Hub
 
 ## Setup Kubernetes Cluster on AWS
-- Setup an [AWS EKS cluster](./terraform/) using Infrastructure As Code--Terraform
+- Setup an [AWS EKS cluster](./terraform/) using Infrastructure As Code:Terraform
 
 ## Deployed Website to Kubernetes and Exposed The Wesbite Using Kubernetes Deployment and Service Manifests
 - [Kubernetes Deployment and Service Manifests](./kubernetes/)
@@ -99,10 +99,14 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 ![Wesbite-Rollback-Update](./images/website-rollback.png)
 
 
-## Implement Liveness and Readiness Probes
+## Implement Liveness and Readiness Probes for the Application
+- Added liveness and readiness probes to [ecom-web.yml](./kubernetes/ecom-web.yml), targeting an endpoint/port in the application that confirms its operational status
+- Updated deployment with the new configuration and tested probes
+
+![Update Deployment](./images/update-deployment.png)
 
 ## Implement Persistent Storage
-- Defined [PersistentVolumeClaim](./kubernetes/mariadb-pvc.yml), [PersistentVolume](./kubernetes/mariadb-pv.yml) and [StorageClass](./kubernetes/storage-class.yml) for MariaDB Storage needs
+- Defined [Deployment](./kubernetes/mariadb-.yml), [PersistentVolumeClaim](./kubernetes/mariadb-pvc.yml), [PersistentVolume](./kubernetes/mariadb-pv.yml) and [StorageClass](./kubernetes/storage-class.yml) for MariaDB Storage needs
 
 ## Autoscaling the application based on CPU usage to handle unpredictable traffic spikes
 - Installed Kubernetes Metrics Server: `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
