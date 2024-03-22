@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-apache
+  name: ecom-hpa
 spec:
   selector:
     matchLabels:
-      run: php-apache
+      run: ecom-hpa
   template:
     metadata:
       labels:
-        run: php-apache
+        run: ecom-hpa
     spec:
       containers:
-      - name: php-apache
+      - name: ecom-hpa
         image: registry.k8s.io/hpa-example
         ports:
         - containerPort: 80
@@ -21,3 +21,15 @@ spec:
             cpu: 500m
           requests:
             cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecom-svc
+  labels:
+    run: ecom-svc
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: ecom-hpa

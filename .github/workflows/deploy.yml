@@ -110,6 +110,3 @@ jobs:
       kubectl apply -f ecom-web-config.yml 
       kubectl apply -f ecom-web.yml 
       kubectl apply -f ecom-web-svc.yml
-      kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-      kubectl apply -f php-apache-svc.yml
-      kubectl apply -f php-apache.yml

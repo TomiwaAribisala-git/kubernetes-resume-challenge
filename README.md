@@ -98,9 +98,47 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 
 ![Wesbite-Rollback-Update](./images/website-rollback.png)
 
+
+## Implement Liveness and Readiness Probes
+
+## Implement Persistent Storage
+- Defined [PersistentVolumeClaim](./kubernetes/mariadb-pvc.yml), [PersistentVolume](./kubernetes/mariadb-pv.yml) and [StorageClass](./kubernetes/storage-class.yml) for MariaDB Storage needs
+
 ## Autoscaling the application based on CPU usage to handle unpredictable traffic spikes
 - Installed Kubernetes Metrics Server: `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
-- Created a [HorizontalPodAutoscaler Deployment](./kubernetes/php-apache.yml) and [HorizontalPodAutoscaler Service](./kubernetes/php-apache-svc.yml)
+
+![Kubernetes-Metrics-Server](./images/metrics-server.png)
+
+- Created a [HorizontalPodAutoscaler Deployment/Service](./kubernetes/ecom.yml)
+
+![Ecom-Server](./images/ecom.png)
+
+- Apply HPA: `kubectl autoscale deployment ecom-web --cpu-percent=50 --min=2 --max=10`
+
+![HPA](./images/ecom-web-autoscale.png)
+
+-  Observe HPA: `kubectl get hpa`
+
+![Observe-HPA](./images/observe-hpa.png)
+
+- See how Autoscaler reacts by increasing load; Using Load-Generator:`kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"`, Using Apache Bench: `alias ab='kubectl run test-load --rm --tty -i --restart='Never' --image devth/alpine-bench --command -- /go/bin/main'`,
+`ab -n 10000 -c 900 -s 300 https://my.site123.com/(replace URL with your ecom-web service)`
+
+![Increase Load](./images/increase-load.png)
+
+- Monitor Autoscaling: `kubectl get hpa ecom-web --watch`, high CPU load and more replicas
+
+![Monitor HPA](./images/monitor-hpa.png)
+
+- Monitor Deployment: `kubectl get deployment ecom-web`
+
+![Monitor Deployment](./images/monitor-deployment.png)
+
+- Stop generating load: Terminate the `busybox` load generation by typing `<Ctrl> + C`
+- Verify the result state: `kubectl get hpa ecom-web --watch`
+
+![Result State](./images/result-state.png)
+
 
 ## Extras
 - [HorizontalPodAutoscaler Walkthrough](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)

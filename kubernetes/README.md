@@ -90,9 +90,5 @@ kubectl apply -f ecom-web-svc.yml
 ```
 
 ```sh
-kubectl apply -f php-apache-svc.yml 
-```
-
-```sh
-kubectl apply -f php-apache.yml 
+kubectl apply -f ecom.yml 
 ```
