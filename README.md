@@ -147,6 +147,10 @@ Using Apache Bench: `alias ab='kubectl run test-load --rm --tty -i --restart='Ne
 
 ![Result State](./images/result-state.png)
 
+- Otherwise, using Apache Bench to generate traffic and increase CPU load: 
+`alias ab='kubectl run test-load --rm --tty -i --restart='Never' --image devth/alpine-bench --command -- /go/bin/main'` 
+`ab -n 10000 -c 900 -s 300 http://<endpoint_url or IP>`, endpoint_url here is the service URL of our application
+
 ## Helm Charts
 - Defined [Helm Charts](./helm-charts/) for the application making deployment and management on Kubernetes clusters more efficient and scalable 
 
