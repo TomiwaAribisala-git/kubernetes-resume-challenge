@@ -147,6 +147,8 @@ Using Apache Bench: `alias ab='kubectl run test-load --rm --tty -i --restart='Ne
 
 ![Result State](./images/result-state.png)
 
+## Helm Charts
+- Defined [Helm Charts](./helm-charts/) for the application making deployment and management on Kubernetes clusters more efficient and scalable 
 
 ## Extras
 - [HorizontalPodAutoscaler Walkthrough](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
