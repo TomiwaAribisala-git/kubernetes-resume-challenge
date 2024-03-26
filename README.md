@@ -67,7 +67,7 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 
 ## Implement Configuration Management
 - Added a [dark theme CSS file](./app/css/style-dark.css) and a simple feature toggle in the [application code](./app/index.php)
-- Created a ConfigMap named [ecom-web-config](./kubernetes/ecom-web-config.yml) with the data FEATURE_DARK_MODE=true.
+- Created a ConfigMap named [ecom-web-config](./kubernetes/feature-toggle.yml) with the data FEATURE_DARK_MODE=true.
 - Outcome: [Website Dark Mode](./images/darktheme.png)
 
 ## Autoscale the application; preparing for a marketing campaign
@@ -105,55 +105,33 @@ docker run -d —network some-network —name ecom-web -p 8080:80 ecom-web:v1
 
 ![Update Deployment](./images/update-deployment.png)
 
-## Implement Persistent Storage
-- Defined [Deployment](./kubernetes/mariadb-.yml), [PersistentVolumeClaim](./kubernetes/mariadb-pvc.yml), [PersistentVolume](./kubernetes/mariadb-pv.yml) and [StorageClass](./kubernetes/storage-class.yml) for MariaDB Storage needs
-
 ## Autoscaling the application based on CPU usage to handle unpredictable traffic spikes
 - Installed Kubernetes Metrics Server: `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
 
-![Kubernetes-Metrics-Server](./images/metrics-server.png)
+![Metrics Server](./images/metrics-server.png)
 
-- Created a [HorizontalPodAutoscaler Deployment/Service](./kubernetes/ecom.yml)
+-  Verify that the `metrics-server` deployment is running the desired number of pods:
 
-![Ecom-Server](./images/ecom.png)
+![Metrics](./images/metrics.png)
 
-- Apply HPA: `kubectl autoscale deployment ecom-web --cpu-percent=50 --min=2 --max=10`
 
-![HPA](./images/ecom-web-autoscale.png)
+- Created a [HorizontalPodAutoscaler Manifest](./kubernetes/ecom-hpa.yml)
+- Apply HPA: `kubectl apply -f ecom-hpa.yml`
 
--  Observe HPA: `kubectl get hpa`
+![Apply HPA](./images/apply-hpa.png)
 
-![Observe-HPA](./images/observe-hpa.png)
+![Apply HPA](./images/apply-hpa-.png)
 
-- See how Autoscaler reacts by increasing load:
+- Using Kubectl Load Generator or Apache Bench to generate traffic and increase CPU load: 
+`kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://a8a04786e58eb4c5e8c38676cc7d08eb-1285750877.eu-north-1.elb.amazonaws.com/; done"`
+`kubectl run  -i --rm --restart=Never --image=mocoso/apachebench apachebench-1 -- bash -c "ab -n 10000 -c 1000 http://a8a04786e58eb4c5e8c38676cc7d08eb-1285750877.eu-north-1.elb.amazonaws.com/"`
 
-Using Load-Generator:`kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"`
+![Observe HPA](./images/observe-hpa.png)
 
-Using Apache Bench: `alias ab='kubectl run test-load --rm --tty -i --restart='Never' --image devth/alpine-bench --command -- /go/bin/main'`,
-`ab -n 10000 -c 900 -s 300 https://my.site123.com/(replace URL with your ecom-web service)`
+![Observe Pods](./images/observe-pods.png)
 
-![Increase Load](./images/increase-load.png)
-
-- Monitor Autoscaling: `kubectl get hpa ecom-web --watch`, high CPU load and more replicas
-
-![Monitor HPA](./images/monitor-hpa.png)
-
-- Monitor Deployment: `kubectl get deployment ecom-web`
-
-![Monitor Deployment](./images/monitor-deployment.png)
-
-- Stop generating load: Terminate the `busybox` load generation by typing `<Ctrl> + C`
-- Verify the result state: `kubectl get hpa ecom-web --watch`
-
-![Result State](./images/result-state.png)
-
-- Otherwise, using Apache Bench to generate traffic and increase CPU load: 
-`alias ab='kubectl run test-load --rm --tty -i --restart='Never' --image devth/alpine-bench --command -- /go/bin/main'` 
-`ab -n 10000 -c 900 -s 300 http://<endpoint_url or IP>`, endpoint_url here is the service URL of our application
+## Implement Persistent Storage
+- Defined [Deployment](./kubernetes/mariadb-depl-pvc.yml), [PersistentVolumeClaim](./kubernetes/mariadb-pvc.yml), [PersistentVolume](./kubernetes/mariadb-pv.yml) and [StorageClass](./kubernetes/local-storage-class.yml) for MariaDB Storage needs
 
 ## Helm Charts
-- Defined [Helm Charts](./helm-charts/) for the application making deployment and management on Kubernetes clusters more efficient and scalable 
-
-## Extras
-- [HorizontalPodAutoscaler Walkthrough](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
-- [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+- Defined [Helm Charts](./helm-charts/) for the application making deployment and management on Kubernetes clusters more efficient and scalable

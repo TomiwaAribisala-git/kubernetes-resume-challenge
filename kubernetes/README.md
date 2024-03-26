@@ -50,18 +50,6 @@ kubectl apply -f mariadb-secret.yml
 ```
 
 ```sh
-kubectl apply -f storage-class.yml 
-```
-
-```sh
-kubectl apply -f mariadb-pv1.yml 
-``` 
-
-```sh
-kubectl apply -f mariadb-pvc.yml 
-``` 
-
-```sh
 kubectl apply -f mariadb-configmap.yml 
 ```
 
@@ -78,7 +66,7 @@ kubectl apply -f ecom-web-configmap.yml
 ```
 
 ```sh
-kubectl apply -f ecom-web-config.yml 
+kubectl apply -f feature-toggle.yml 
 ```
 
 ```sh
@@ -87,8 +75,4 @@ kubectl apply -f ecom-web.yml
 
 ```sh
 kubectl apply -f ecom-web-svc.yml 
-```
-
-```sh
-kubectl apply -f ecom.yml 
 ```
