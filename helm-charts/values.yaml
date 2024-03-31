@@ -1,0 +1,47 @@
+replicas: 1
+namespace: helm
+
+database: 
+  enabled: true
+  fullname: mariadb-deployment
+  replicas: 1
+  image: mariadb:latest
+  labels:
+    app: mariadb
+  
+  configmap:
+   fullname: mariadb-configmap
+   
+  service:
+    fullname: mysql-service
+    type: ClusterIP
+    port: 3306
+  
+  secret:
+    fullname: mariadb-secret
+    mariadbrootpassword: ZWNvbXBhc3N3b3Jk  
+    user: ZWNvbXVzZXI=
+    userpassword: ZWNvbXBhc3N3b3Jk
+    dbname: ZWNvbWRi
+
+website:
+  enabled: true
+  fullname: ecom-web
+  replicas: 1
+  image: tomiwa97/ecom-web:v2
+  port: 80
+  labels:
+    app: ecom-web
+  
+  service:
+    fullname: ecom-web-service
+    type: LoadBalancer
+    port: 80
+  
+  configmap:
+    fullname: ecom-web-configmap
+    featurename: ecom-web-config
+    database_url: mysql-service
+
+test:
+  enabled: false

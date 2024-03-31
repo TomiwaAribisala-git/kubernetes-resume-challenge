@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.database.fullname | quote }}
+  namespace: {{ .Values.namespace | quote }}
+spec:
+  replicas: {{ .Values.database.replicas }}
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: {{ .Values.database.image | default "mariadb:latest" | quote }}
+        ports:
+        - containerPort: {{ .Values.database.service.port | default 3306 }}
+        volumeMounts:
+        - name: mariadb-configmap-volume
+          mountPath: /docker-entrypoint-initdb.d
+        env:
+         - name: MARIADB_ROOT_PASSWORD
+           valueFrom:
+            secretKeyRef:
+            name: {{ .Values.database.secret.fullname }}
+            key: mariadbrootpassword
+         - name: DB_USER
+           valueFrom:
+            secretKeyRef:
+            name: {{ .Values.database.secret.fullname }}
+            key: user
+         - name: DB_PASSWORD
+           valueFrom:
+            secretKeyRef:
+            name: {{ .Values.database.secret.fullname }}
+            key: userpassword 
+      volumes:
+      - name: mariadb-configmap-volume
+        configMap:
+         name: mariadb-configmap
+         items:
+          - key: db-load-script.sql
+            path: db-load-script.sql

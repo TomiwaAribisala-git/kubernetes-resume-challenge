@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: {{ .Values.website.fullname | quote }}
+ namespace: {{ .Values.namespace | quote }}
+ labels:
+  app: ecom-web
+spec:
+ replicas: {{ .Values.replicas | default 1 }}
+ selector:
+  matchLabels:
+   app: ecom-web
+ template:
+  metadata:
+   labels:
+    app: ecom-web
+  spec:
+   imagePullSecrets:
+     - name: regcred
+   containers:
+    - name: ecom-web
+      image: {{ .Values.website.image }}
+      imagePullPolicy: Always
+      ports:
+       - containerPort: {{ .Values.website.port  | default 80 }}
+      resources:
+       requests:
+        cpu: "200m"
+      livenessProbe:
+       initialDelaySeconds: 5
+       periodSeconds: 5
+       tcpSocket:
+        port: 80
+      readinessProbe: 
+       initialDelaySeconds: 5
+       periodSeconds: 5
+       tcpSocket:
+        port: 80
+      env:
+       - name: FEATURE_DARK_MODE
+         valueFrom:
+          configMapKeyRef:
+           name: {{ .Values.website.configmap.featurename | quote }}
+           key: FEATURE_DARK_MODE
+       - name: DB_HOST
+         valueFrom:
+          configMapKeyRef:
+           name: {{ .Values.website.configmap.database_url  | quote }}
+           key: database_url
+       - name: DB_USER
+         valueFrom:
+          secretKeyRef:
+           name: {{ .Values.database.secret.fullname | quote }}
+           key: user
+       - name: DB_PASSWORD
+         valueFrom:
+          secretKeyRef:
+           name: {{ .Values.database.secret.fullname | quote }}
+           key: userpassword
+       - name: DB_NAME
+         valueFrom:
+          secretKeyRef:
+           name: {{ .Values.database.secret.fullname | quote }}
+           key: dbname
+      

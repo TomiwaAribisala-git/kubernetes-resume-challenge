@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.website.configmap.featurename | quote }}
+  namespace: {{ .Values.namespace | quote }}
+data:
+  FEATURE_DARK_MODE: "true"
